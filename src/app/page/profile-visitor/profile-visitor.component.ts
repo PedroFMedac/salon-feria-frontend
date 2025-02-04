@@ -10,7 +10,10 @@ import { Usuario } from '../../../models/users.model';
 import { catchError, lastValueFrom, Observable, of, retry, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditUsersComponent } from '../admin-dashboard/edit-users/edit-users.component'; 
+import { data } from 'jquery';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-profile-visitor',
   standalone: true,
@@ -21,11 +24,17 @@ import { Router } from '@angular/router';
     MatCardModule,
     MatGridListModule,
     MatIconModule,
+    MatDialogModule
+    
   ],
   templateUrl: './profile-visitor.component.html',
-  styleUrl: './profile-visitor.component.scss',
+  styleUrls: ['./profile-visitor.component.scss'],
 })
 export class ProfileVisitorComponent {
+  private dialog = inject(MatDialog);
+scrollToSectionFunction: any;
+
+  constructor() {}
   loading = signal<boolean>(true); // Para controlar si se está cargando
   loadingError = signal<boolean>(false); // Para manejar errores de carga
 
@@ -35,10 +44,11 @@ export class ProfileVisitorComponent {
   private userService = inject(UserService);
   private router = inject(Router);
 
+
+
   ngOnInit(): void {
     this.loadProfileData();
-  }
-
+    }
   private async loadProfileData(): Promise<void> {
     this.loading.set(true);
     this.loadingError.set(false);
@@ -78,5 +88,11 @@ export class ProfileVisitorComponent {
     });
   }
 
-  openEditDialog(): void {}
+  openEditDialog(): void {
+    const dialogRef = this.dialog.open(EditUsersComponent, {
+      data: {
+        user: this.userVisitor,
+      }
+});
+}
 }
