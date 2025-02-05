@@ -11,9 +11,12 @@ import { catchError, lastValueFrom, Observable, of, retry, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
-import { EditUsersComponent } from '../admin-dashboard/edit-users/edit-users.component'; 
+//import { EditUsersComponent } from '../admin-dashboard/edit-users/edit-users.component'; 
 import { data } from 'jquery';
 import { MatDialog } from '@angular/material/dialog';
+import { EditFormComponent } from '../profile/edit-form/edit-form.component'; 
+
+
 @Component({
   selector: 'app-profile-visitor',
   standalone: true,
@@ -25,7 +28,6 @@ import { MatDialog } from '@angular/material/dialog';
     MatGridListModule,
     MatIconModule,
     MatDialogModule
-    
   ],
   templateUrl: './profile-visitor.component.html',
   styleUrls: ['./profile-visitor.component.scss'],
@@ -89,7 +91,7 @@ scrollToSectionFunction: any;
   }
 
   openEditDialog(): void {
-    const dialogRef = this.dialog.open(EditUsersComponent, {
+    const dialogRef = this.dialog.open(EditFormComponent, {
       data: {
         user: this.userVisitor,
       }
